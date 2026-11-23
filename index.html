@@ -1,39 +1,154 @@
 <!doctype html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101d3a"><meta name="description" content="Tiara Agency OS — offline library for Agency Agents">
-<link rel="manifest" href="manifest.webmanifest"><title>Tiara Agency OS</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101d3a">
+<meta name="description" content="Tiara Agency OS — offline library for Agency Agents">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Tiara Agency OS</title>
 <style>
-:root{--navy:#101d3a;--navy2:#17294d;--blue:#315caa;--bg:#f4f6fb;--card:#fff;--ink:#172033;--muted:#64718a;--line:#e4e9f2;--green:#16794b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input,select{font:inherit}.top{background:linear-gradient(120deg,var(--navy),#243e70);color:white;padding:18px max(16px,calc((100vw - 1160px)/2));position:sticky;top:0;z-index:5;box-shadow:0 3px 16px #0b183333}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:13px;background:#fff;color:var(--navy);display:grid;place-items:center;font-weight:900;font-size:19px}.brand h1{font-size:19px;margin:0}.brand p{margin:1px 0 0;color:#d8e3fa;font-size:12px}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px}.status{font-size:11px;color:#d7f8e8;border:1px solid #5b9d7e;border-radius:99px;padding:4px 9px;white-space:nowrap}.nav{display:flex;gap:7px;overflow:auto;margin-top:15px;padding-bottom:2px}.nav button{background:#ffffff18;color:#e7edfa;border:1px solid #ffffff28;padding:8px 12px;border-radius:9px;white-space:nowrap}.nav button.active{background:white;color:var(--navy);font-weight:700}main{max-width:1160px;margin:auto;padding:20px 16px 60px}.hero{background:linear-gradient(120deg,#17294d,#315caa);color:white;border-radius:18px;padding:22px;margin-bottom:18px}.hero h2{font-size:23px;margin:0 0 6px}.hero p{color:#dce6fa;margin:0;max-width:720px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px}.stat b{display:block;font-size:23px;color:var(--navy)}.stat span{font-size:12px;color:var(--muted)}.section-title{font-size:18px;margin:20px 0 10px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:11px}.division{display:flex;align-items:center;gap:10px;text-align:left;width:100%;background:white;border:1px solid var(--line);border-radius:13px;padding:13px;cursor:pointer;color:var(--ink)}.division .dot{width:10px;height:10px;border-radius:50%;background:var(--blue)}.division b{display:block}.division small{color:var(--muted)}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}.toolbar input,.toolbar select{background:white;border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-width:0}.toolbar input{flex:1;min-width:180px}.btn{border:0;background:var(--navy);color:white;padding:10px 13px;border-radius:10px;cursor:pointer}.btn.secondary{background:#e9eef8;color:var(--navy)}.btn.green{background:var(--green)}.item{background:white;border:1px solid var(--line);border-radius:13px;padding:14px;display:flex;flex-direction:column;gap:8px}.item h3{margin:0;font-size:15px}.item p{margin:0;color:var(--muted);font-size:12px}.item .meta{font-size:11px;color:var(--blue)}.item-actions{display:flex;gap:7px;margin-top:auto;flex-wrap:wrap}.item-actions button{font-size:12px;padding:7px 9px}.pill{display:inline-block;background:#edf2fb;color:#304c7e;border-radius:99px;padding:3px 8px;font-size:11px}.detail{background:white;border:1px solid var(--line);border-radius:16px;padding:18px}.detail-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.detail h2{margin:0;font-size:20px}.content{white-space:pre-wrap;overflow-wrap:anywhere;background:#fbfcff;border:1px solid var(--line);padding:14px;border-radius:10px;max-height:60vh;overflow:auto;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}.muted{color:var(--muted)}.hidden{display:none!important}.empty{padding:24px;text-align:center;color:var(--muted);background:white;border:1px dashed var(--line);border-radius:14px}.foot{text-align:center;color:var(--muted);font-size:11px;margin-top:28px}.runbook{margin:10px 0;padding:14px;background:white;border:1px solid var(--line);border-radius:13px}.runbook h3{margin:0 0 4px}.runbook p{margin:0 0 9px;color:var(--muted);font-size:13px}@media(min-width:760px){.stats{grid-template-columns:repeat(3,180px)}.topline{min-height:46px}}
-</style></head>
+:root{--navy:#101d3a;--navy2:#17294d;--blue:#315caa;--bg:#f4f6fb;--card:#fff;--ink:#172033;--muted:#64718a;--line:#e4e9f2;--green:#16794b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input,select{font:inherit}
+.top{background:linear-gradient(120deg,var(--navy),#243e70);color:white;padding:18px max(16px,calc((100vw - 1160px)/2));position:sticky;top:0;z-index:5;box-shadow:0 3px 16px #0b183333}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:13px;background:#fff;color:var(--navy);display:grid;place-items:center;font-weight:900;font-size:19px}
+.brand h1{font-size:19px;margin:0}.brand p{margin:1px 0 0;color:#d8e3fa;font-size:12px}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.status{font-size:11px;color:#d7f8e8;border:1px solid #5b9d7e;border-radius:99px;padding:4px 9px;white-space:nowrap}
+.nav{display:flex;gap:7px;overflow:auto;margin-top:15px;padding-bottom:2px}.nav button{background:#ffffff18;color:#e7edfa;border:1px solid #ffffff28;padding:8px 12px;border-radius:9px;white-space:nowrap}
+.nav button.active{background:white;color:var(--navy);font-weight:700}main{max-width:1160px;margin:auto;padding:20px 16px 60px}
+.hero{background:linear-gradient(120deg,#17294d,#315caa);color:white;border-radius:18px;padding:22px;margin-bottom:18px}.hero h2{font-size:23px;margin:0 0 6px}.hero p{color:#dce6fa;margin:0;max-width:720px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px}
+.stat b{display:block;font-size:23px;color:var(--navy)}.stat span{font-size:12px;color:var(--muted)}.section-title{font-size:18px;margin:20px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:11px}
+.division{display:flex;align-items:center;gap:10px;text-align:left;width:100%;background:white;border:1px solid var(--line);border-radius:13px;padding:13px;cursor:pointer;color:var(--ink)}
+.division .dot{width:10px;height:10px;border-radius:50%;background:var(--blue)}.division b{display:block}.division small{color:var(--muted)}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}.toolbar input,.toolbar select{background:white;border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-width:0}
+.toolbar input{flex:1;min-width:180px}.btn{border:0;background:var(--navy);color:white;padding:10px 13px;border-radius:10px;cursor:pointer}
+.btn.secondary{background:#e9eef8;color:var(--navy)}.btn.green{background:var(--green)}
+.item{background:white;border:1px solid var(--line);border-radius:13px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.item h3{margin:0;font-size:15px}.item p{margin:0;color:var(--muted);font-size:12px}.item .meta{font-size:11px;color:var(--blue)}
+.item-actions{display:flex;gap:7px;margin-top:auto;flex-wrap:wrap}.item-actions button{font-size:12px;padding:7px 9px}
+.pill{display:inline-block;background:#edf2fb;color:#304c7e;border-radius:99px;padding:3px 8px;font-size:11px}
+.detail{background:white;border:1px solid var(--line);border-radius:16px;padding:18px}.detail-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.detail h2{margin:0;font-size:20px}.content{white-space:pre-wrap;overflow-wrap:anywhere;background:#fbfcff;border:1px solid var(--line);padding:14px;border-radius:10px;max-height:60vh;overflow:auto;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+.muted{color:var(--muted)}.hidden{display:none!important}.empty{padding:24px;text-align:center;color:var(--muted);background:white;border:1px dashed var(--line);border-radius:14px}
+.foot{text-align:center;color:var(--muted);font-size:11px;margin-top:28px}.runbook{margin:10px 0;padding:14px;background:white;border:1px solid var(--line);border-radius:13px}
+.runbook h3{margin:0 0 4px}.runbook p{margin:0 0 9px;color:var(--muted);font-size:13px}
+@media(min-width:760px){.stats{grid-template-columns:repeat(3,180px)}.topline{min-height:46px}}
+</style>
+</head>
 <body>
-<header class="top"><div class="topline"><div class="brand"><div class="logo">T</div><div><h1>Tiara Agency OS</h1><p>Powered by Tiara Web Solutions</p></div></div><span class="status" id="offlineStatus">● Offline-ready</span></div><nav class="nav" id="nav"><button class="active" data-tab="home">होम</button><button data-tab="agents">AI Agents</button><button data-tab="departments">Departments</button><button data-tab="runbooks">Runbooks</button><button data-tab="library">पूरी Library</button><button data-tab="tools">Tools & Help</button></nav></header>
+<header class="top">
+  <div class="topline">
+    <div class="brand"><div class="logo">T</div><div><h1>Tiara Agency OS</h1><p>Powered by Tiara Web Solutions</p></div></div>
+    <span class="status" id="offlineStatus">● Offline-ready</span>
+  </div>
+  <nav class="nav" id="nav">
+    <button class="active" data-tab="home">Home</button><button data-tab="agents">AI Agents</button>
+    <button data-tab="departments">Departments</button><button data-tab="runbooks">Runbooks</button>
+    <button data-tab="library">Full Library</button><button data-tab="tools">Tools & Help</button>
+  </nav>
+</header>
 <main>
-<section id="home" class="page"><div class="hero"><h2>आपकी पूरी AI विशेषज्ञ टीम, एक जगह</h2><p>Agency Agents की मूल निर्देश फाइलें, 18 विभाग, एजेंट खोज, Runbooks और ऑफलाइन लाइब्रेरी। Agent चुनें, निर्देश कॉपी करें और ChatGPT में इस्तेमाल करें।</p></div><div class="stats"><div class="stat"><b id="agentCount">283</b><span>AI Agent निर्देश</span></div><div class="stat"><b id="divisionCount">18</b><span>विभाग</span></div><div class="stat"><b id="docCount">330</b><span>Library दस्तावेज़</span></div></div><h3 class="section-title">विभाग चुनें</h3><div class="grid" id="homeDivisions"></div><h3 class="section-title">जल्दी शुरू करें</h3><div class="grid"><button class="division" onclick="go('agents')"><span class="dot"></span><span><b>सभी AI Agents देखें</b><small>खोजें, पढ़ें और निर्देश कॉपी करें</small></span></button><button class="division" onclick="go('runbooks')"><span class="dot"></span><span><b>Runbooks खोलें</b><small>पहले से तैयार टीम और कार्य-योजनाएँ</small></span></button><button class="division" onclick="go('library')"><span class="dot"></span><span><b>पूरी Library</b><small>मूल Markdown दस्तावेज़ ब्राउज़ करें</small></span></button></div></section>
-<section id="agents" class="page hidden"><h2 class="section-title">AI Agents</h2><div class="toolbar"><input id="agentSearch" placeholder="Agent का नाम या काम खोजें..."><select id="agentDivision"><option value="">सभी विभाग</option></select><select id="agentSort"><option value="name">नाम के अनुसार</option><option value="division">विभाग के अनुसार</option><option value="fav">पसंदीदा पहले</option></select></div><div class="muted" id="agentResults" style="margin:0 0 10px"></div><div class="grid" id="agentList"></div></section>
-<section id="departments" class="page hidden"><h2 class="section-title">18 Departments</h2><p class="muted">किसी विभाग को चुनकर उसके सभी उपलब्ध विशेषज्ञ देखें।</p><div class="grid" id="departmentList"></div></section>
-<section id="runbooks" class="page hidden"><h2 class="section-title">Runbooks / तैयार टीम</h2><p class="muted">मूल ZIP में उपलब्ध scenario runbooks और उनके agent rosters।</p><div id="runbookList"></div></section>
-<section id="library" class="page hidden"><h2 class="section-title">पूरी Source Library</h2><div class="toolbar"><input id="docSearch" placeholder="दस्तावेज़ या फाइल खोजें..."><select id="docDivision"><option value="">सभी फोल्डर</option></select></div><div class="muted" id="docResults" style="margin:0 0 10px"></div><div class="grid" id="docList"></div></section>
-<section id="tools" class="page hidden"><h2 class="section-title">Tools & Help</h2><div class="card"><h3>बिना API खर्च के कैसे इस्तेमाल करें?</h3><ol><li>AI Agents में अपना विशेषज्ञ चुनें।</li><li><b>निर्देश कॉपी करें</b> दबाएँ।</li><li>ChatGPT खोलें और निर्देश पेस्ट करें।</li><li>इसके बाद अपना काम बताएं। ChatGPT Free की उपलब्ध उपयोग-सीमाएँ लागू होंगी।</li></ol><a href="https://chatgpt.com/" target="_blank" rel="noopener"><button class="btn">ChatGPT खोलें ↗</button></a></div><div class="card" style="margin-top:12px"><h3>ऑफलाइन उपयोग</h3><p>पहली बार इस ऐप को इंटरनेट के साथ खोलें। इसके बाद ऐप और इसकी डाउनलोड की गई Library ऑफलाइन खुल सकेगी। ChatGPT से AI जवाब पाने के लिए इंटरनेट जरूरी है।</p><p class="muted">Android: Chrome में ⋮ → Add to Home screen / Install app चुनें। कंप्यूटर: Chrome/Edge में Install आइकन या मेन्यू से Install चुनें।</p></div><div class="card" style="margin-top:12px"><h3>मूल प्रोजेक्ट</h3><p>यह ऐप msitarzewski/agency-agents के दिए गए एजेंट निर्देशों और दस्तावेज़ों को ब्राउज़ करने के लिए बनाया गया है। मूल प्रोजेक्ट की MIT License फाइल पैकेज में शामिल है।</p><a href="https://github.com/msitarzewski/agency-agents" target="_blank" rel="noopener">GitHub Source ↗</a></div><div class="card" style="margin-top:12px"><h3>पसंदीदा एजेंट</h3><button class="btn secondary" id="exportFav">Favorites Export करें</button><button class="btn secondary" id="clearFav">Favorites साफ करें</button></div></section>
-<section id="detailPage" class="page hidden"><div class="detail"><div class="detail-head"><div><span class="pill" id="detailDivision"></span><h2 id="detailTitle" style="margin-top:8px"></h2><p class="muted" id="detailPath"></p></div><button class="btn secondary" onclick="go('agents')">← वापस</button></div><div class="toolbar"><button class="btn green" id="copyPrompt">निर्देश कॉपी करें</button><button class="btn secondary" id="chatPrompt">ChatGPT में खोलें ↗</button><button class="btn secondary" id="favToggle">☆ Favorite</button></div><div class="content" id="detailContent"></div></div></section>
-<div class="foot">Tiara Agency OS · Offline-first Library · No paid API included</div>
+<section id="home" class="page">
+  <div class="hero"><h2>Your Complete AI Expert Team, All in One Place</h2>
+    <p>Browse the original Agency Agents instruction files, 18 departments, agent search, runbooks, and the offline library. Choose an agent, copy its instructions, and use them in ChatGPT.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="agentCount">283</b><span>AI Agent Instructions</span></div>
+    <div class="stat"><b id="divisionCount">18</b><span>Departments</span></div>
+    <div class="stat"><b id="docCount">330</b><span>Library Documents</span></div>
+  </div>
+  <h3 class="section-title">Choose a Department</h3><div class="grid" id="homeDivisions"></div>
+  <h3 class="section-title">Get Started Quickly</h3>
+  <div class="grid">
+    <button class="division" onclick="go('agents')"><span class="dot"></span><span><b>Browse All AI Agents</b><small>Search, read, and copy agent instructions</small></span></button>
+    <button class="division" onclick="go('runbooks')"><span class="dot"></span><span><b>Open Runbooks</b><small>Pre-built teams and workflows</small></span></button>
+    <button class="division" onclick="go('library')"><span class="dot"></span><span><b>Browse the Full Library</b><small>Explore original Markdown documents</small></span></button>
+  </div>
+</section>
+<section id="agents" class="page hidden">
+  <h2 class="section-title">AI Agents</h2>
+  <div class="toolbar"><input id="agentSearch" placeholder="Search by agent name or task...">
+    <select id="agentDivision"><option value="">All Departments</option></select>
+    <select id="agentSort"><option value="name">Sort by Name</option><option value="division">Sort by Department</option><option value="fav">Favorites First</option></select>
+  </div>
+  <div class="muted" id="agentResults" style="margin:0 0 10px"></div><div class="grid" id="agentList"></div>
+</section>
+<section id="departments" class="page hidden"><h2 class="section-title">18 Departments</h2>
+  <p class="muted">Choose a department to view all available specialists.</p><div class="grid" id="departmentList"></div>
+</section>
+<section id="runbooks" class="page hidden"><h2 class="section-title">Runbooks / Ready-Made Teams</h2>
+  <p class="muted">Scenario runbooks and their agent rosters included in the source package.</p><div id="runbookList"></div>
+</section>
+<section id="library" class="page hidden"><h2 class="section-title">Full Source Library</h2>
+  <div class="toolbar"><input id="docSearch" placeholder="Search documents or files...">
+    <select id="docDivision"><option value="">All Folders</option></select></div>
+  <div class="muted" id="docResults" style="margin:0 0 10px"></div><div class="grid" id="docList"></div>
+</section>
+<section id="tools" class="page hidden"><h2 class="section-title">Tools & Help</h2>
+  <div class="card"><h3>How to Use Without API Costs</h3><ol>
+    <li>Choose a specialist in AI Agents.</li><li>Tap <b>Copy Instructions</b>.</li><li>Open ChatGPT and paste the instructions.</li>
+    <li>Then describe the task you want done. ChatGPT Free usage limits apply.</li></ol>
+    <a href="https://chatgpt.com/" target="_blank" rel="noopener"><button class="btn">Open ChatGPT ↗</button></a>
+  </div>
+  <div class="card" style="margin-top:12px"><h3>Offline Access</h3>
+    <p>Open this app with an internet connection at least once. After that, the app and its downloaded library can be available offline. An internet connection is required to get AI responses from ChatGPT.</p>
+    <p class="muted">Android: In Chrome, tap ⋮ → Add to Home screen / Install app. Desktop: In Chrome or Edge, use the Install icon or choose Install from the menu.</p>
+  </div>
+  <div class="card" style="margin-top:12px"><h3>Original Project</h3>
+    <p>This app lets you browse the agent instructions and documents provided by msitarzewski/agency-agents. The original project's MIT License file is included in this package.</p>
+    <a href="https://github.com/msitarzewski/agency-agents" target="_blank" rel="noopener">View Source on GitHub ↗</a>
+  </div>
+  <div class="card" style="margin-top:12px"><h3>Favorite Agents</h3>
+    <button class="btn secondary" id="exportFav">Export Favorites</button>
+    <button class="btn secondary" id="clearFav">Clear Favorites</button>
+  </div>
+</section>
+<section id="detailPage" class="page hidden"><div class="detail">
+  <div class="detail-head"><div><span class="pill" id="detailDivision"></span><h2 id="detailTitle" style="margin-top:8px"></h2><p class="muted" id="detailPath"></p></div>
+    <button class="btn secondary" onclick="go('agents')">← Back</button></div>
+  <div class="toolbar"><button class="btn green" id="copyPrompt">Copy Instructions</button>
+    <button class="btn secondary" id="chatPrompt">Open in ChatGPT ↗</button><button class="btn secondary" id="favToggle">☆ Favorite</button></div>
+  <div class="content" id="detailContent"></div>
+</div></section>
+<div class="foot">Tiara Agency OS · Offline-first Library · No paid AI API included</div>
 </main>
-<script src="catalog.js"></script><script>
-const $=s=>document.querySelector(s);let current=null;let fav=new Set(JSON.parse(localStorage.getItem('taos_favs')||'[]'));const divisionNames=Object.fromEntries(Object.entries(CATALOG.divisions).map(([k,v])=>[k,v.label]));
+<script src="catalog.js"></script>
+<script>
+const $=s=>document.querySelector(s);let current=null;let fav=new Set(JSON.parse(localStorage.getItem('taos_favs')||'[]'));
+const divisionNames=Object.fromEntries(Object.entries(CATALOG.divisions).map(([k,v])=>[k,v.label]));
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function go(tab){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));$('#'+tab).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));window.scrollTo(0,0)}
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.tab)));
 function divisionCard(k){let count=CATALOG.agents.filter(a=>a.division===k).length;return `<button class="division" onclick="filterDivision('${esc(k)}')"><span class="dot"></span><span><b>${esc(divisionNames[k]||k)}</b><small>${count} agents</small></span></button>`}
 function filterDivision(k){go('agents');$('#agentDivision').value=k;renderAgents()}
-function init(){const keys=Object.keys(CATALOG.divisions);$('#homeDivisions').innerHTML=keys.map(divisionCard).join('');$('#departmentList').innerHTML=keys.map(divisionCard).join('');$('#agentDivision').innerHTML+=[...keys].map(k=>`<option value="${esc(k)}">${esc(divisionNames[k])}</option>`).join('');$('#docDivision').innerHTML+=[...new Set(CATALOG.docs.map(d=>d.division))].sort().map(k=>`<option value="${esc(k)}">${esc(divisionNames[k]||k)}</option>`).join('');$('#agentCount').textContent=CATALOG.agents.length;$('#divisionCount').textContent=keys.length;$('#docCount').textContent=CATALOG.docs.length;renderAgents();renderDocs();renderRunbooks()}
-function renderAgents(){let q=$('#agentSearch').value.toLowerCase(),d=$('#agentDivision').value,sort=$('#agentSort').value;let arr=CATALOG.agents.filter(a=>(!d||a.division===d)&&(!q||(a.path+' '+a.title+' '+a.content.slice(0,1200)).toLowerCase().includes(q)));if(sort==='fav')arr.sort((a,b)=>(fav.has(b.path)-fav.has(a.path))||a.title.localeCompare(b.title));else if(sort==='division')arr.sort((a,b)=>a.division.localeCompare(b.division)||a.title.localeCompare(b.title));else arr.sort((a,b)=>a.title.localeCompare(b.title));$('#agentResults').textContent=`${arr.length} एजेंट मिले`;$('#agentList').innerHTML=arr.length?arr.map(a=>`<article class="item"><span class="meta">${esc(divisionNames[a.division]||a.division)}</span><h3>${esc(a.title)}</h3><p>${esc((a.content.match(/(?m)^description:\s*(.+)$/)||[])[1]||a.content.slice(0,150)).slice(0,180)}</p><div class="item-actions"><button class="btn" onclick="openDoc('${esc(a.path)}',true)">खोलें</button><button class="btn secondary" onclick="quickCopy('${esc(a.path)}')">कॉपी</button><button class="btn secondary" onclick="toggleFav('${esc(a.path)}')">${fav.has(a.path)?'★':'☆'}</button></div></article>`).join(''):'<div class="empty">कोई एजेंट नहीं मिला। खोज बदलकर देखें।</div>'}
-function renderDocs(){let q=$('#docSearch').value.toLowerCase(),d=$('#docDivision').value;let arr=CATALOG.docs.filter(x=>(!d||x.division===d)&&(!q||(x.path+' '+x.title+' '+x.content.slice(0,500)).toLowerCase().includes(q)));$('#docResults').textContent=`${arr.length} दस्तावेज़ मिले`;$('#docList').innerHTML=arr.slice(0,160).map(x=>`<article class="item"><span class="meta">${esc(divisionNames[x.division]||x.division)} ${x.isAgent?'· Agent':''}</span><h3>${esc(x.title)}</h3><p>${esc(x.path)}</p><div class="item-actions"><button class="btn" onclick="openDoc('${esc(x.path)}',${x.isAgent})">दस्तावेज़ खोलें</button></div></article>`).join('')+(arr.length>160?'<p class="muted">पहले 160 परिणाम दिखाए गए हैं। खोज को सीमित करें।</p>':'')||'<div class="empty">कोई दस्तावेज़ नहीं मिला।</div>'}
-function renderRunbooks(){let rs=CATALOG.runbooks.runbooks||[];$('#runbookList').innerHTML=rs.length?rs.map(r=>`<article class="runbook"><h3>${esc(r.title)}</h3><p>${esc(r.summary)} · ${esc(r.duration||'')}</p><span class="pill">${esc(r.mode||'')}</span><p style="margin-top:10px">${(r.roster||[]).map(g=>`<b>${esc(g.group)}</b>: ${g.agents.length} agents`).join(' · ')}</p><button class="btn secondary" onclick="showRunbook('${esc(r.slug)}')">टीम विवरण देखें</button></article>`).join(''):'<div class="empty">इस ZIP में कोई runbook roster नहीं मिला।</div>'}
-function showRunbook(slug){let r=CATALOG.runbooks.runbooks.find(x=>x.slug===slug);let roster=r.roster.map(g=>g.group+' ('+g.activation+')\n'+g.agents.join(', ')).join('\n\n');let text=r.title+'\n'+r.summary+'\n\n'+roster;current={title:r.title,path:r.doc,division:'Runbooks',content:text};$('#detailDivision').textContent='Runbooks';$('#detailTitle').textContent=r.title;$('#detailPath').textContent=r.doc;$('#detailContent').textContent=text;$('#favToggle').classList.add('hidden');go('detailPage')}
+function init(){const keys=Object.keys(CATALOG.divisions);$('#homeDivisions').innerHTML=keys.map(divisionCard).join('');$('#departmentList').innerHTML=keys.map(divisionCard).join('');
+$('#agentDivision').innerHTML+=[...keys].map(k=>`<option value="${esc(k)}">${esc(divisionNames[k])}</option>`).join('');
+$('#docDivision').innerHTML+=[...new Set(CATALOG.docs.map(d=>d.division))].sort().map(k=>`<option value="${esc(k)}">${esc(divisionNames[k]||k)}</option>`).join('');
+$('#agentCount').textContent=CATALOG.agents.length;$('#divisionCount').textContent=keys.length;$('#docCount').textContent=CATALOG.docs.length;renderAgents();renderDocs();renderRunbooks()}
+function renderAgents(){let q=$('#agentSearch').value.toLowerCase(),d=$('#agentDivision').value,sort=$('#agentSort').value;
+let arr=CATALOG.agents.filter(a=>(!d||a.division===d)&&(!q||(a.path+' '+a.title+' '+a.content.slice(0,1200)).toLowerCase().includes(q)));
+if(sort==='fav')arr.sort((a,b)=>(fav.has(b.path)-fav.has(a.path))||a.title.localeCompare(b.title));else if(sort==='division')arr.sort((a,b)=>a.division.localeCompare(b.division)||a.title.localeCompare(b.title));else arr.sort((a,b)=>a.title.localeCompare(b.title));
+$('#agentResults').textContent=`${arr.length} agents found`;
+$('#agentList').innerHTML=arr.length?arr.map(a=>`<article class="item"><span class="meta">${esc(divisionNames[a.division]||a.division)}</span><h3>${esc(a.title)}</h3><p>${esc((a.content.match(/(?m)^description:\s*(.+)$/)||[])[1]||a.content.slice(0,150)).slice(0,180)}</p><div class="item-actions"><button class="btn" onclick="openDoc('${esc(a.path)}',true)">Open</button><button class="btn secondary" onclick="quickCopy('${esc(a.path)}')">Copy</button><button class="btn secondary" onclick="toggleFav('${esc(a.path)}')">${fav.has(a.path)?'★':'☆'}</button></div></article>`).join(''):'<div class="empty">No agents found. Try a different search.</div>'}
+function renderDocs(){let q=$('#docSearch').value.toLowerCase(),d=$('#docDivision').value;
+let arr=CATALOG.docs.filter(x=>(!d||x.division===d)&&(!q||(x.path+' '+x.title+' '+x.content.slice(0,500)).toLowerCase().includes(q)));
+$('#docResults').textContent=`${arr.length} documents found`;
+$('#docList').innerHTML=arr.slice(0,160).map(x=>`<article class="item"><span class="meta">${esc(divisionNames[x.division]||x.division)} ${x.isAgent?'· Agent':''}</span><h3>${esc(x.title)}</h3><p>${esc(x.path)}</p><div class="item-actions"><button class="btn" onclick="openDoc('${esc(x.path)}',${x.isAgent})">Open Document</button></div></article>`).join('')+(arr.length>160?'<p class="muted">Showing the first 160 results. Refine your search.</p>':'')||'<div class="empty">No documents found.</div>'}
+function renderRunbooks(){let rs=CATALOG.runbooks.runbooks||[];$('#runbookList').innerHTML=rs.length?rs.map(r=>`<article class="runbook"><h3>${esc(r.title)}</h3><p>${esc(r.summary)} · ${esc(r.duration||'')}</p><span class="pill">${esc(r.mode||'')}</span><p style="margin-top:10px">${(r.roster||[]).map(g=>`<b>${esc(g.group)}</b>: ${g.agents.length} agents`).join(' · ')}</p><button class="btn secondary" onclick="showRunbook('${esc(r.slug)}')">View Team Details</button></article>`).join(''):'<div class="empty">No runbook roster was found in this package.</div>'}
+function showRunbook(slug){let r=CATALOG.runbooks.runbooks.find(x=>x.slug===slug);let roster=r.roster.map(g=>g.group+' ('+g.activation+')\n'+g.agents.join(', ')).join('\n\n');let text=r.title+'\n'+r.summary+'\n\n'+roster;
+current={title:r.title,path:r.doc,division:'Runbooks',content:text};$('#detailDivision').textContent='Runbooks';$('#detailTitle').textContent=r.title;$('#detailPath').textContent=r.doc;$('#detailContent').textContent=text;$('#favToggle').classList.add('hidden');go('detailPage')}
 function openDoc(path,isAgent){let x=CATALOG.docs.find(d=>d.path===path);if(!x)return;current=x;$('#detailDivision').textContent=divisionNames[x.division]||x.division;$('#detailTitle').textContent=x.title;$('#detailPath').textContent=x.path;$('#detailContent').textContent=x.content;$('#favToggle').classList.toggle('hidden',!isAgent);$('#favToggle').textContent=fav.has(path)?'★ Favorite':'☆ Favorite';go('detailPage')}
-function quickCopy(path){let x=CATALOG.agents.find(a=>a.path===path);if(x)copyText(x.content)}async function copyText(t){try{await navigator.clipboard.writeText(t);alert('निर्देश कॉपी हो गए। अब ChatGPT में पेस्ट करें।')}catch(e){let ta=document.createElement('textarea');ta.value=t;document.body.append(ta);ta.select();document.execCommand('copy');ta.remove();alert('कॉपी करने की कोशिश पूरी हुई।')}}
+function quickCopy(path){let x=CATALOG.agents.find(a=>a.path===path);if(x)copyText(x.content)}
+async function copyText(t){try{await navigator.clipboard.writeText(t);alert('Instructions copied. Now paste them into ChatGPT.')}catch(e){let ta=document.createElement('textarea');ta.value=t;document.body.append(ta);ta.select();document.execCommand('copy');ta.remove();alert('Copy attempt completed.')}}
 function toggleFav(path){if(fav.has(path))fav.delete(path);else fav.add(path);localStorage.setItem('taos_favs',JSON.stringify([...fav]));$('#favToggle').textContent=fav.has(path)?'★ Favorite':'☆ Favorite';renderAgents()}
-$('#copyPrompt').onclick=()=>current&&copyText(current.content);$('#chatPrompt').onclick=()=>{if(current){copyText(current.content);window.open('https://chatgpt.com/','_blank','noopener')}};$('#favToggle').onclick=()=>current&&toggleFav(current.path);$('#agentSearch').oninput=renderAgents;$('#agentDivision').onchange=renderAgents;$('#agentSort').onchange=renderAgents;$('#docSearch').oninput=renderDocs;$('#docDivision').onchange=renderDocs;$('#exportFav').onclick=()=>{let blob=new Blob([JSON.stringify([...fav],null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tiara-agency-favorites.json';a.click();URL.revokeObjectURL(a.href)};$('#clearFav').onclick=()=>{if(confirm('सभी Favorites हटाएँ?')){fav.clear();localStorage.removeItem('taos_favs');renderAgents()}};
+$('#copyPrompt').onclick=()=>current&&copyText(current.content);$('#chatPrompt').onclick=()=>{if(current){copyText(current.content);window.open('https://chatgpt.com/','_blank','noopener')}};
+$('#favToggle').onclick=()=>current&&toggleFav(current.path);$('#agentSearch').oninput=renderAgents;$('#agentDivision').onchange=renderAgents;$('#agentSort').onchange=renderAgents;
+$('#docSearch').oninput=renderDocs;$('#docDivision').onchange=renderDocs;
+$('#exportFav').onclick=()=>{let blob=new Blob([JSON.stringify([...fav],null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tiara-agency-favorites.json';a.click();URL.revokeObjectURL(a.href)};
+$('#clearFav').onclick=()=>{if(confirm('Clear all favorites?')){fav.clear();localStorage.removeItem('taos_favs');renderAgents()}};
 init();if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').then(()=>$('#offlineStatus').textContent='● Offline cache ready').catch(()=>$('#offlineStatus').textContent='● Offline mode available after install'));
-</script></body></html>
+</script>
+</body>
+</html>
