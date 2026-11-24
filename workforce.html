@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101d3a">
+<title>Tiara Agency OS — Universal Workforce</title>
+<style>
+:root{--navy:#101d3a;--blue:#315caa;--bg:#f4f6fb;--card:#fff;--ink:#172033;--muted:#64718a;--line:#e2e8f0;--green:#16794b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:linear-gradient(120deg,var(--navy),#315caa);color:white;padding:18px 16px}
+.wrap{max-width:980px;margin:auto;padding:18px 14px 50px}.brand{font-weight:800;font-size:20px}.sub{color:#dce6fa;font-size:12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px;margin:12px 0}
+h1{font-size:22px;margin:0 0 5px}h2{font-size:17px;margin:0 0 10px}h3{font-size:15px;margin:0 0 6px}
+textarea,input{width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff;color:var(--ink)}
+textarea{min-height:125px;resize:vertical}.row{display:flex;gap:9px;flex-wrap:wrap}.row>*{flex:1;min-width:150px}
+button{border:0;border-radius:10px;padding:11px 14px;background:var(--navy);color:white;font:inherit;font-weight:650;cursor:pointer}
+button.alt{background:#e9eef8;color:var(--navy)}button.green{background:var(--green)}
+.small{font-size:12px;color:var(--muted)}.pill{display:inline-block;padding:3px 8px;border-radius:99px;background:#edf2fb;color:#304c7e;font-size:11px;margin:2px}
+.agent{border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0}.agent p{font-size:12px;color:var(--muted);margin:4px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f8faff;border:1px solid var(--line);border-radius:10px;padding:12px;font:12px/1.55 ui-monospace,monospace;max-height:360px;overflow:auto}
+.output{display:none}.status{font-size:12px;color:#dff8e9}.warn{background:#fff8e7;border:1px solid #f0dfb4;padding:10px;border-radius:10px;font-size:12px}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+@media(min-width:700px){.wrap{padding-top:24px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
+</style></head>
+<body>
+<header><div class="wrap" style="padding:0 14px"><div class="brand">TIARA AGENCY OS</div><div class="sub">Universal AI Workforce · Powered by Tiara Web Solutions</div></div></header>
+<main class="wrap">
+<section class="panel">
+<h1>Universal Task Command Center</h1>
+<p class="small">Give the system any client task: software, mobile apps, AI agents, design, research, marketing, operations, documents, or other supported work.</p>
+<textarea id="task" placeholder="Describe the client's task, expected result, constraints, budget, and deadline..."></textarea>
+<div class="row" style="margin-top:10px"><button id="route">Analyse Task & Select Specialists</button><button class="alt" id="clear">Clear</button></div>
+<p class="small" id="catalogStatus">Checking the original agent catalogue…</p>
+</section>
+<div id="results" class="output">
+<section class="panel"><h2>1. Manager Agent Decision</h2><div id="decision"></div></section>
+<section class="panel"><h2>2. Selected Specialist Agents</h2><p class="small">Only the highest-relevance specialists are selected. Their actual catalogue instructions are used below.</p><div id="agents"></div><button class="alt" id="copyTeam">Copy Selected Team Instructions</button></section>
+<section class="panel"><h2>3. Work Order for the Selected Team</h2><pre id="workorder"></pre><button class="alt" id="copyOrder">Copy Work Order</button></section>
+<section class="panel"><h2>4. Ready for ChatGPT</h2><p class="small">This is the handoff prompt for work that this offline prototype cannot execute by itself.</p><pre id="handoff"></pre><button class="green" id="copyHandoff">Copy ChatGPT Handoff</button></section>
+<section class="panel"><h2>5. Final Work Report</h2><p class="small">Fill this after work is actually completed. The prototype never marks unperformed work as complete.</p>
+<label class="small">Completed by App</label><textarea id="completed" placeholder="List only files, analysis, or actions actually completed by the app."></textarea>
+<label class="small">Ready for ChatGPT</label><textarea id="remaining" placeholder="List remaining tasks and paste-ready next steps."></textarea>
+<label class="small">Final Work Report</label><textarea id="report" placeholder="Deliverables, validation, blockers, risks, and next action."></textarea>
+<button id="copyReport">Copy Final Work Report</button></section>
+</div>
+<section class="panel warn"><b>Prototype limitation:</b> This first version performs local catalogue-based routing and creates work orders/handoff prompts. It does not run AI models, write software autonomously, deploy apps, or call paid APIs. Actual execution requires connecting an approved model/runtime and development tools later.</section>
+<footer>Tiara Agency OS · No API key required · Original catalogue remains unchanged</footer>
+</main>
+<script src="./catalog.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const stop=new Set(("the and for with from into your you are this that then than have will can should could would about task work build make create develop design client application software website mobile android ios app ai agent automation business system research marketing content write document data api database backend frontend deploy test testing").split(" "));
+let selected=[];
+function tokens(s){return (s.toLowerCase().match(/[a-z0-9+#.-]{2,}/g)||[]).filter(x=>!stop.has(x))}
+function scoreAgent(a,terms){
+ const title=tokens(a.title||"").join(" "), path=(a.path||"").toLowerCase(), body=(a.content||"").slice(0,9000).toLowerCase();
+ let score=0, hits=[];
+ for(const t of terms){let n=0;if(title.includes(t)){n+=8}if(path.includes(t)){n+=5}let m=body.split(t).length-1;n+=Math.min(m,5);if(n){score+=n;hits.push(t)}}
+ return {score,hits};
+}
+function classify(task){
+ const t=task.toLowerCase(), types=[];
+ const groups=[
+ ["Mobile / Application Development",["android","ios","mobile app","application","flutter","react native"]],
+ ["Software / Platform Development",["software","saas","crm","erp","dashboard","platform","backend","api","database"]],
+ ["AI / Agent Systems",["ai agent","agent","llm","chatbot","assistant","automation","multi-agent"]],
+ ["Design / Creative",["design","logo","graphic","ui","ux","brand","video"]],
+ ["Marketing / Growth",["marketing","seo","ads","campaign","social media","lead generation","sales"]],
+ ["Research / Strategy",["research","analysis","competitor","market","strategy","business plan"]],
+ ["Web Development",["website","web app","frontend","wordpress","ecommerce"]]
+ ];
+ for(const [name,keys] of groups)if(keys.some(k=>t.includes(k)))types.push(name);
+ return types.length?types:["General Client Project"];
+}
+function managerRecord(){
+ const a=CATALOG.agents||[];
+ return a.find(x=>/project-management-project-shepherd|project shepherd/i.test((x.path||"")+" "+(x.title||"")))||null;
+}
+function safe(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function copy(s){navigator.clipboard.writeText(s).then(()=>alert("Copied.")).catch(()=>alert("Copy failed; select and copy the text manually."))}
+function route(){
+ const task=$("#task").value.trim();if(!task){alert("Please enter the client task first.");return}
+ if(!window.CATALOG||!Array.isArray(CATALOG.agents)){alert("catalog.js could not be loaded. Keep this file beside the original catalog.js.");return}
+ const terms=[...new Set(tokens(task))];const ranked=CATALOG.agents.map(a=>({a,...scoreAgent(a,terms)})).filter(x=>x.score>0).sort((x,y)=>y.score-x.score);
+ selected=ranked.slice(0,5);
+ const types=classify(task),manager=managerRecord();
+ $("#catalogStatus").textContent=`Loaded ${CATALOG.agents.length} agent instructions and ${Object.keys(CATALOG.divisions||{}).length} divisions.`;
+ $("#decision").innerHTML=`<p><b>Task categories:</b> ${types.map(x=>`<span class="pill">${safe(x)}</span>`).join("")}</p><p><b>Main coordinator:</b> ${manager?safe(manager.title):"Project Manager / Coordinator role (catalog match not found)"}</p><p class="small">Routing method: local keyword relevance against agent title, file path and actual instruction text. This is a first-pass router, not an LLM judgement.</p><p><b>Specialists selected:</b> ${selected.length}</p>`;
+ $("#agents").innerHTML=selected.length?selected.map((x,i)=>`<article class="agent"><b>${i+1}. ${safe(x.a.title)}</b><div class="small">${safe(x.a.division||"")} · relevance ${x.score}</div><p>${safe(x.a.path)}</p><p>Matched terms: ${safe(x.hits.slice(0,12).join(", "))}</p></article>`).join(""):"<p>No clear specialist match. Refine the task or use a human/ChatGPT review before assigning.";
+ const team=selected.map(x=>`### ${x.a.title}\nSource: ${x.a.path}\n\n${x.a.content}`).join("\n\n---\n\n");
+ const order=`TIARA AGENCY OS — WORK ORDER\n\nCLIENT TASK:\n${task}\n\nTASK CATEGORIES:\n${types.join(", ")}\n\nMAIN COORDINATOR:\n${manager?manager.title:"Project Manager / Coordinator"}\n\nSELECTED SPECIALISTS:\n${selected.map((x,i)=>`${i+1}. ${x.a.title} (${x.a.division}) — ${x.a.path}`).join("\n")||"No reliable match; request manual review."}\n\nCOORDINATION RULES:\n- Read each selected specialist's complete source instructions before assigning work.\n- Break the task into concrete deliverables and dependencies.\n- Activate only the specialists needed; do not activate all 283 agents.\n- Keep each specialist inside its documented expertise.\n- Do not claim a deliverable is complete without an artifact or validation evidence.\n- Record blockers, assumptions, risks, and what needs human approval.\n- Return exactly: Completed by App / Ready for ChatGPT / Final Work Report.\n\nSELECTED SPECIALIST SOURCE INSTRUCTIONS:\n${team}`;
+ const handoff=`You are completing a client project for Tiara Web Solutions. Act as the Project Manager and coordinate the selected specialists using their source instructions below.\n\nCLIENT TASK:\n${task}\n\nTASK CATEGORIES:\n${types.join(", ")}\n\nSELECTED TEAM:\n${selected.map((x,i)=>`${i+1}. ${x.a.title} — ${x.a.path}`).join("\n")}\n\nINSTRUCTIONS:\n1. Read the full instructions of every selected specialist included below.\n2. Plan the work, assign subtasks, resolve dependencies and produce the requested deliverables.\n3. If code is required, provide complete files and exact run/test steps; do not pretend to deploy or access accounts you cannot access.\n4. Minimise cost and avoid unnecessary tools/API calls.\n5. Report honestly what is completed, what remains, and evidence/validation.\n6. Use exactly these final sections: Completed by App; Ready for ChatGPT; Final Work Report.\n\nSPECIALIST INSTRUCTIONS:\n${team}`;
+ $("#workorder").textContent=order;$("#handoff").textContent=handoff;$("#results").style.display="block";window.scrollTo({top:$("#results").offsetTop-10,behavior:"smooth"});
+}
+$("#route").onclick=route;$("#clear").onclick=()=>{$("#task").value="";$("#results").style.display="none";selected=[]};
+$("#copyTeam").onclick=()=>copy(selected.map(x=>x.a.title+"\n"+x.a.path+"\n\n"+x.a.content).join("\n\n---\n\n"));
+$("#copyOrder").onclick=()=>copy($("#workorder").textContent);$("#copyHandoff").onclick=()=>copy($("#handoff").textContent);
+$("#copyReport").onclick=()=>copy("COMPLETED BY APP\n"+$("#completed").value+"\n\nREADY FOR CHATGPT\n"+$("#remaining").value+"\n\nFINAL WORK REPORT\n"+$("#report").value);
+$("#catalogStatus").textContent=window.CATALOG?`Catalogue detected: ${CATALOG.agents.length} agent instructions.`:"Waiting for catalogue…";
+</script></body></html>
