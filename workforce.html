@@ -80,7 +80,7 @@ function safe(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&
 function copy(s){navigator.clipboard.writeText(s).then(()=>alert("Copied.")).catch(()=>alert("Copy failed; select and copy the text manually."))}
 function route(){
  const task=$("#task").value.trim();if(!task){alert("Please enter the client task first.");return}
- if(!window.CATALOG||!Array.isArray(CATALOG.agents)){alert("catalog.js could not be loaded. Keep this file beside the original catalog.js.");return}
+ if(typeof CATALOG==="undefined"||!Array.isArray(CATALOG.agents)){alert("catalog.js could not be loaded. Keep this file beside the original catalog.js.");return}
  const terms=[...new Set(tokens(task))];const ranked=CATALOG.agents.map(a=>({a,...scoreAgent(a,terms)})).filter(x=>x.score>0).sort((x,y)=>y.score-x.score);
  selected=ranked.slice(0,5);
  const types=classify(task),manager=managerRecord();
